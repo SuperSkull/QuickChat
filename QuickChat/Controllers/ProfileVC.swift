@@ -10,16 +10,17 @@ import UIKit
 
 class ProfileVC: UIViewController {
 
+    @IBOutlet weak var btnClose: UIButton!
+    @IBOutlet var tgrBackground: UITapGestureRecognizer!
     @IBOutlet weak var imgUser: UIImageView!
     @IBOutlet weak var txtUsername: UILabel!
     @IBOutlet weak var txtEmail: UILabel!
-    @IBOutlet weak var bgView: UIView!
-    @IBOutlet weak var closeTouch: UIGestureRecognizer!
+    @IBOutlet weak var bgdView: UIView!
     
-    func setupView() {
+    fileprivate func setupView() {
         // Do any additional setup after loading the view.
-        closeTouch = UIGestureRecognizer(target: self, action: #selector(self.closeTapped(_:)))
-        bgView.addGestureRecognizer(closeTouch)
+        tgrBackground = UITapGestureRecognizer(target: self, action: #selector(closeTapped(_:)))
+        bgdView.addGestureRecognizer(tgrBackground)
         txtUsername.text = UserDataService.instance.userData.name
         txtEmail.text = UserDataService.instance.userData.email
         imgUser.image = UIImage(named: UserDataService.instance.userData.avatarName)
@@ -29,6 +30,10 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    @IBAction func bgdViewTapped(_ sender: UITapGestureRecognizer) {
+        dismiss(animated: true, completion: nil)
     }
 
     @IBAction func btnClosePressed(_ sender: UIButton) {

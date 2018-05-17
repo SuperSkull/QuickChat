@@ -10,7 +10,7 @@ import UIKit
 
 extension UIViewController {
     
-    @objc func backgroundTapped(_ sender: UITapGestureRecognizer) {
+    @objc func endEditingTapped(_ sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
     

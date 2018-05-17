@@ -13,11 +13,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileVC" customModule="QuickChat" customModuleProvider="target">
             <connections>
-                <outlet property="bgView" destination="BCh-ue-T3T" id="6Yf-Z0-H7B"/>
+                <outlet property="bgdView" destination="BCh-ue-T3T" id="Atc-6q-6Av"/>
+                <outlet property="btnClose" destination="YMu-u6-4Pu" id="w8y-u4-G90"/>
                 <outlet property="imgUser" destination="nhr-hw-bHZ" id="MG3-Oz-zny"/>
+                <outlet property="tgrBackground" destination="sSl-WY-lRC" id="dtS-Km-k7K"/>
                 <outlet property="txtEmail" destination="mVP-UD-VV6" id="zj5-BV-hLO"/>
                 <outlet property="txtUsername" destination="n3b-gA-gSW" id="mAG-iC-LTg"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,9 +26,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCh-ue-T3T" userLabel="bgView">
-                    <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCh-ue-T3T" userLabel="bgdView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="0.0" alpha="0.248046875" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RID-kx-fe2">
                     <rect key="frame" x="20" y="104" width="280" height="360"/>
@@ -51,7 +53,7 @@
                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                             <state key="normal" image="closeButton"/>
                             <connections>
-                                <action selector="btnClosePressed:" destination="-1" eventType="touchUpInside" id="8gI-o5-auy"/>
+                                <action selector="btnClosePressed:" destination="-1" eventType="touchUpInside" id="igO-K9-yWL"/>
                             </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ozr-rO-4iK">
@@ -89,6 +91,7 @@
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" red="0.75850427657178765" green="1" blue="0.96981634906272896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YMu-u6-4Pu" secondAttribute="bottom" constant="200" id="1PH-in-xNq"/>
                         <constraint firstItem="ozr-rO-4iK" firstAttribute="centerX" secondItem="RID-kx-fe2" secondAttribute="centerX" id="BjQ-ry-cdo"/>
@@ -107,7 +110,7 @@
                 <constraint firstItem="RID-kx-fe2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="4fu-qG-9Uo"/>
                 <constraint firstItem="BCh-ue-T3T" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Mcf-QW-5Lr"/>
                 <constraint firstItem="RID-kx-fe2" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="QxO-TA-Vqa"/>
-                <constraint firstItem="BCh-ue-T3T" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="fit-R4-WTh"/>
+                <constraint firstItem="BCh-ue-T3T" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fit-R4-WTh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RID-kx-fe2" secondAttribute="trailing" constant="20" id="g03-nd-l76"/>
                 <constraint firstItem="RID-kx-fe2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="rDy-yT-qaU"/>
                 <constraint firstAttribute="bottom" secondItem="BCh-ue-T3T" secondAttribute="bottom" id="vMQ-8T-UCE"/>
@@ -116,6 +119,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="25.5" y="51.5"/>
         </view>
+        <tapGestureRecognizer id="sSl-WY-lRC"/>
     </objects>
     <resources>
         <image name="closeButton" width="28" height="28"/>

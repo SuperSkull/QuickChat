@@ -14,11 +14,31 @@ class LoginVC: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var aivLogin: UIActivityIndicatorView!
     
+    var toastText: String?
+    
+    fileprivate func setupView() {
+        // Do any additional setup after loading the view.
+        let tapGestureBackground = UITapGestureRecognizer(target: self, action: #selector(endEditingTapped(_:)))
+        view.addGestureRecognizer(tapGestureBackground)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        let tapGestureBackground = UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped(_:)))
-        self.view.addGestureRecognizer(tapGestureBackground)
+        setupView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let message = toastText {
+            view.makeToast(message)
+            toastText = nil
+        }
+        print(aivLogin.isHidden)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationViewController = segue.destination as? SignUpVC {
+            destinationViewController.toastText = sender as? String
+        }
     }
 
     @IBAction func btnClosePressed(_ sender: UIButton) {
@@ -32,8 +52,8 @@ class LoginVC: UIViewController {
         guard let pass = txtPassword.text, txtPassword.text != "" else {
             return
         }
-        self.aivLogin.startAnimating()
-        self.aivLogin.isHidden = false
+        aivLogin.startAnimating()
+        aivLogin.isHidden = false
         AuthService.instance.loginUser(user: User(email, pass)) { (success) in
             if success {
                 if AuthService.instance.isLoggedIn {
@@ -45,8 +65,8 @@ class LoginVC: UIViewController {
                 self.view.makeToast("Login failed! Check out the connection!")
             }
         }
-        self.aivLogin.isHidden = true
-        self.aivLogin.stopAnimating()
+        aivLogin.isHidden = true
+        aivLogin.stopAnimating()
     }
     
     @IBAction func btnSignUpPressed(_ sender: UIButton) {
@@ -54,11 +74,5 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func unwindToLoginVC(unwindSegue: UIStoryboardSegue){}
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationViewController = segue.destination as? SignUpVC {
-            destinationViewController.toastText = sender as? String
-        }
-    }
 
 }

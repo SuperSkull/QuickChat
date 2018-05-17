@@ -51,6 +51,18 @@ class AuthService {
         }
     }
     
+    fileprivate func setUserData(_ data: Data) {
+        let json = JSON(data)
+        if json["_id"].exists() && json["name"].exists() && json["email"].exists() && json["avatarName"].exists() && json["avatarColor"].exists() {
+            let id = json["_id"].stringValue
+            let name = json["name"].stringValue
+            let email = json["email"].stringValue
+            let avatarName = json["avatarName"].stringValue
+            let avatarColor = json["avatarColor"].stringValue
+            UserDataService.instance.setUserData(userData: UserData(id: id, name: name, email: email, avatarName: avatarName, avatarColor: avatarColor))
+        }
+    }
+    
     func registerUser(user: User, completion: @escaping CompletionHandle) {
         let lowerCaseEmail = user.email.lowercased()
         let body: [String: Any] = [
@@ -90,29 +102,20 @@ class AuthService {
                 let json = JSON(data)
                 if json["message"].exists() {
                     self.errorMessage = json["message"].stringValue
+                    completion(true)
                 } else if json["user"].exists() && json["token"].exists() {
                     self.userEmail = json["user"].stringValue
                     self.authToken = json["token"].stringValue
                     self.isLoggedIn = true
+                    completion(true)
+                } else {
+                    completion(false)
                 }
-                completion(true)
             } else {
                 self.isLoggedIn = false
                 completion(false)
                 debugPrint(response.result.error as Any)
             }
-        }
-    }
-    
-    fileprivate func setUserData(_ data: Data) {
-        let json = JSON(data)
-        if json["_id"].exists() && json["name"].exists() && json["email"].exists() && json["avatarName"].exists() && json["avatarColor"].exists() {
-            let id = json["_id"].stringValue
-            let name = json["name"].stringValue
-            let email = json["email"].stringValue
-            let avatarName = json["avatarName"].stringValue
-            let avatarColor = json["avatarColor"].stringValue
-            UserDataService.instance.setUserData(userData: UserData(id: id, name: name, email: email, avatarName: avatarName, avatarColor: avatarColor))
         }
     }
     

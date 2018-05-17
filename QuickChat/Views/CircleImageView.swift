@@ -8,8 +8,7 @@
 
 import UIKit
 
-@IBDesignable
-class CircleImageView: UIImageView {
+@IBDesignable class CircleImageView: UIImageView {
 
     override func awakeFromNib() {
         self.setRounded()

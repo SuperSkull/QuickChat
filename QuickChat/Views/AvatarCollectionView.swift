@@ -8,12 +8,10 @@
 
 import UIKit
 
-@IBDesignable
-class AvatarCollectionView: UICollectionView {
+@IBDesignable class AvatarCollectionView: UICollectionView {
     
     
-    @IBInspectable
-    var numberColumns: UInt = 4 {
+    @IBInspectable var numberColumns: UInt = 4 {
         didSet {
 //            customizedView()
             self.setNeedsLayout()

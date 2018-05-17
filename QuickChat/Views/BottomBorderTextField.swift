@@ -8,11 +8,9 @@
 
 import UIKit
 
-@IBDesignable
-class BottomBorderTextField: UITextField {
+@IBDesignable class BottomBorderTextField: UITextField {
     
-    @IBInspectable
-    var bottomBorderWidth: CGFloat = 2.0 {
+    @IBInspectable var bottomBorderWidth: CGFloat = 2.0 {
         didSet {
             customizedView()
             self.setNeedsLayout()

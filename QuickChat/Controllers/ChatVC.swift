@@ -14,12 +14,16 @@ class ChatVC: UIViewController {
 
     @IBOutlet weak var btnMenu: UIButton!
     
+    fileprivate func setupView() {
+        revealViewController()?.isLeftPresentViewOnTop = false
+        revealViewController()?.setLeftViewRevealWidth(view.frame.width - (btnMenu.frame.width + btnMenu.frame.minX * 2) , animated: true)
+        btnMenu.addTarget(revealViewController(), action: #selector(PBRevealViewController.revealLeftView), for: .touchUpInside)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.revealViewController()?.isLeftPresentViewOnTop = false
-        self.revealViewController()?.setLeftViewRevealWidth(self.view.frame.width - (btnMenu.frame.width + btnMenu.frame.minX * 2) , animated: true)
-        btnMenu.addTarget(self.revealViewController(), action: #selector(PBRevealViewController.revealLeftView), for: .touchUpInside)
+        setupView()
     }
 
 }

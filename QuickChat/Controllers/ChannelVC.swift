@@ -16,22 +16,8 @@ class ChannelVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(self.userDataDidChanged), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userDataDidChanged), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
     }
-
-    @IBAction func btnLoginPressed(_ sender: Any) {
-//        if AuthService.instance.isLoggedIn {
-            let profileVC = ProfileVC()
-            profileVC.modalPresentationStyle = .custom
-//            profileVC.closeTouch = UIGestureRecognizer(target: profileVC, action: #selector(profileVC.closeTapped(_:)))
-//            profileVC.bgView.addGestureRecognizer(profileVC.closeTouch)
-            present(profileVC, animated: true, completion: nil)
-//        } else {
-//            performSegue(withIdentifier: TO_LOGIN, sender: nil)
-//        }
-    }
-    
-    @IBAction func unwindToChannelVC(unwindSegue: UIStoryboardSegue){}
     
     @objc func userDataDidChanged(_ notif: Notification) {
         if AuthService.instance.isLoggedIn {
@@ -44,4 +30,16 @@ class ChannelVC: UIViewController {
             imgUser.backgroundColor = nil
         }
     }
+
+    @IBAction func btnLoginPressed(_ sender: Any) {
+        if AuthService.instance.isLoggedIn {
+            let profileVC = ProfileVC()
+            profileVC.modalPresentationStyle = .custom
+            present(profileVC, animated: true, completion: nil)
+        } else {
+            performSegue(withIdentifier: TO_LOGIN, sender: nil)
+        }
+    }
+    
+    @IBAction func unwindToChannelVC(unwindSegue: UIStoryboardSegue){}
 }
