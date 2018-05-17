@@ -26,6 +26,7 @@ class ChannelVC: UIViewController {
             view.makeToast(message)
             toastText = nil
         }
+        setupUserData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
