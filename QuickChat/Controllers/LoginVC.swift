@@ -61,12 +61,12 @@ class LoginVC: UIViewController {
                 AuthService.instance.findUserByEmail(completion: { (success) in
                     if success {
                         NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
-                        self.dismiss(animated: true, completion: {
-                            self.onCompletion?("Login successful!")
-                        })
                     } else {
                         self.view.makeToast(AuthService.instance.errorMessage)
                     }
+                })
+                self.dismiss(animated: true, completion: {
+                    self.onCompletion?("Login successful!")
                 })
             } else {
                 self.view.makeToast(AuthService.instance.errorMessage)
