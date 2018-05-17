@@ -32,7 +32,7 @@
                     <gestureRecognizers/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RID-kx-fe2">
-                    <rect key="frame" x="20" y="104" width="280" height="360"/>
+                    <rect key="frame" x="20" y="114" width="280" height="360"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Rz-nh-mcQ">
                             <rect key="frame" x="106.5" y="310" width="67" height="40"/>
@@ -109,10 +109,10 @@
             <constraints>
                 <constraint firstItem="RID-kx-fe2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="4fu-qG-9Uo"/>
                 <constraint firstItem="BCh-ue-T3T" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Mcf-QW-5Lr"/>
-                <constraint firstItem="RID-kx-fe2" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="QxO-TA-Vqa"/>
+                <constraint firstItem="RID-kx-fe2" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="QxO-TA-Vqa"/>
                 <constraint firstItem="BCh-ue-T3T" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fit-R4-WTh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RID-kx-fe2" secondAttribute="trailing" constant="20" id="g03-nd-l76"/>
-                <constraint firstItem="RID-kx-fe2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="rDy-yT-qaU"/>
+                <constraint firstItem="RID-kx-fe2" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="rDy-yT-qaU"/>
                 <constraint firstAttribute="bottom" secondItem="BCh-ue-T3T" secondAttribute="bottom" id="vMQ-8T-UCE"/>
                 <constraint firstAttribute="trailing" secondItem="BCh-ue-T3T" secondAttribute="trailing" id="vXe-u4-7Os"/>
             </constraints>
