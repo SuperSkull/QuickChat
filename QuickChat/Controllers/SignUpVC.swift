@@ -24,12 +24,6 @@ class SignUpVC: UIViewController {
     var bgColor: UIColor?
     var toastText: String?
     
-    fileprivate func setupView() {
-        // Do any additional setup after loading the view.
-        let tapGestureBackground = UITapGestureRecognizer(target: self, action: #selector(endEditingTapped(_:)))
-        view.addGestureRecognizer(tapGestureBackground)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -54,13 +48,20 @@ class SignUpVC: UIViewController {
         if bgColor != nil {
             imgUser.backgroundColor = bgColor!
         }
-        print(aivSignUp.isHidden)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationViewController = segue.destination as? AvatarVC {
             destinationViewController.avatarType = sender as! AvatarType
         }
+    }
+    
+    fileprivate func setupView() {
+        // Do any additional setup after loading the view.
+        let tapGestureBackground = UITapGestureRecognizer(target: self, action: #selector(endEditingTapped(_:)))
+        view.addGestureRecognizer(tapGestureBackground)
+        aivSignUp.isHidden = true
+        aivSignUp.hidesWhenStopped = true
     }
     
     @IBAction func btnCreateAccountPressed(_ sender: UIButton) {
@@ -84,20 +85,20 @@ class SignUpVC: UIViewController {
         //    if success {
         //        self.dismiss(animated: true, completion: nil)
         //    } else {
-        //        self.view.makeToast("User cannot be registered!")
+        //        self.view.makeToast(AuthService.instance.errorMessage)
         //    }
         //}
-        aivSignUp.startAnimating()
         aivSignUp.isHidden = false
+        aivSignUp.startAnimating()
         AuthService.instance.createUser(name: name, email: email, avatarName: avatarName, avatarColor: avatarColor) { (success) in
             if success {
                 self.performSegue(withIdentifier: TO_CHANNEL, sender: nil)
                 NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
             } else {
-                self.view.makeToast("User cannot be created!")
+                self.view.makeToast(AuthService.instance.errorMessage)
             }
         }
-        aivSignUp.isHidden = true
+//        aivSignUp.isHidden = true
         aivSignUp.stopAnimating()
     }
     
@@ -121,7 +122,6 @@ class SignUpVC: UIViewController {
         avatarColor = "[\(red), \(green), \(blue), 1]"
         UIView.animate(withDuration: 0.4) {
             self.imgUser.backgroundColor = self.bgColor
-//            self.txtUsername.attributedPlaceholder = NSAttributedString(string: self.txtUsername.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : self.bgColor!])
         }
     }
 }

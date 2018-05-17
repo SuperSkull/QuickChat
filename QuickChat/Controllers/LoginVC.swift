@@ -15,12 +15,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var aivLogin: UIActivityIndicatorView!
     
     var toastText: String?
-    
-    fileprivate func setupView() {
-        // Do any additional setup after loading the view.
-        let tapGestureBackground = UITapGestureRecognizer(target: self, action: #selector(endEditingTapped(_:)))
-        view.addGestureRecognizer(tapGestureBackground)
-    }
+    var onCompletion: ((_ data: String) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +27,20 @@ class LoginVC: UIViewController {
             view.makeToast(message)
             toastText = nil
         }
-        print(aivLogin.isHidden)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationViewController = segue.destination as? SignUpVC {
             destinationViewController.toastText = sender as? String
         }
+    }
+    
+    fileprivate func setupView() {
+        // Do any additional setup after loading the view.
+        let tapGestureBackground = UITapGestureRecognizer(target: self, action: #selector(endEditingTapped(_:)))
+        view.addGestureRecognizer(tapGestureBackground)
+        aivLogin.isHidden = true
+        aivLogin.hidesWhenStopped = true
     }
 
     @IBAction func btnClosePressed(_ sender: UIButton) {
@@ -52,20 +54,25 @@ class LoginVC: UIViewController {
         guard let pass = txtPassword.text, txtPassword.text != "" else {
             return
         }
-        aivLogin.startAnimating()
         aivLogin.isHidden = false
+        aivLogin.startAnimating()
         AuthService.instance.loginUser(user: User(email, pass)) { (success) in
             if success {
-                if AuthService.instance.isLoggedIn {
-                    self.performSegue(withIdentifier: TO_SIGN_UP, sender: "Login successful!")
-                } else {
-                    self.view.makeToast(AuthService.instance.errorMessage)
-                }
+                AuthService.instance.findUserByEmail(completion: { (success) in
+                    if success {
+                        NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                        self.dismiss(animated: true, completion: {
+                            self.onCompletion?("Login successful!")
+                        })
+                    } else {
+                        self.view.makeToast(AuthService.instance.errorMessage)
+                    }
+                })
             } else {
-                self.view.makeToast("Login failed! Check out the connection!")
+                self.view.makeToast(AuthService.instance.errorMessage)
             }
         }
-        aivLogin.isHidden = true
+//        aivLogin.isHidden = true
         aivLogin.stopAnimating()
     }
     

@@ -14,7 +14,15 @@ class AvatarVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     @IBOutlet weak var sgmColor: UISegmentedControl!
     
     var avatarType: AvatarType = .dark
-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        cltAvatar.delegate = self
+        cltAvatar.dataSource = self
+        setupView()
+    }
+    
     fileprivate func setupView() {
         if let tmpCollectionAvatar = cltAvatar as? AvatarCollectionView {
             let numberColumns = CGFloat(tmpCollectionAvatar.numberColumns)
@@ -25,7 +33,6 @@ class AvatarVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
                 let totalCellWidth = view.frame.width - max(0, numberColumns - 1) * horizontalSpacing - sectionInset * 2 - CGFloat(1)
                 let cellWidth = totalCellWidth / numberColumns
                 flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-                //                print(view.frame.width > (max(0, numberColumns - 1) * horizontalSpacing + sectionInset * 2 + cellWidth * numberColumns))
             }
         }
         if avatarType == .light {
@@ -33,14 +40,6 @@ class AvatarVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
         } else {
             sgmColor.selectedSegmentIndex = 0
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        cltAvatar.delegate = self
-        cltAvatar.dataSource = self
-        setupView()
     }
 
     @IBAction func btnBackPressed(_ sender: UIButton) {

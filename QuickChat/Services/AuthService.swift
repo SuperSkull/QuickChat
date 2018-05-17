@@ -51,7 +51,7 @@ class AuthService {
         }
     }
     
-    fileprivate func setUserData(_ data: Data) {
+    fileprivate func setUserData(_ data: Data, _ completion: CompletionHandle) {
         let json = JSON(data)
         if json["_id"].exists() && json["name"].exists() && json["email"].exists() && json["avatarName"].exists() && json["avatarColor"].exists() {
             let id = json["_id"].stringValue
@@ -60,6 +60,10 @@ class AuthService {
             let avatarName = json["avatarName"].stringValue
             let avatarColor = json["avatarColor"].stringValue
             UserDataService.instance.setUserData(userData: UserData(id: id, name: name, email: email, avatarName: avatarName, avatarColor: avatarColor))
+            completion(true)
+        } else {
+            self.errorMessage = "Cannot read user data!"
+            completion(false)
         }
     }
     
@@ -74,6 +78,7 @@ class AuthService {
             if response.result.error == nil {
                 completion(true)
             } else {
+                self.errorMessage = "Cannot register new user!"
                 completion(false)
                 debugPrint(response.result.error as Any)
             }
@@ -97,21 +102,27 @@ class AuthService {
 //                    }
 //                }
                 guard let data = response.data else {
+                    self.errorMessage = "Cannot retrieve data!"
+                    completion(false)
                     return
                 }
                 let json = JSON(data)
                 if json["message"].exists() {
                     self.errorMessage = json["message"].stringValue
-                    completion(true)
+                    self.isLoggedIn = false
+                    completion(false)
                 } else if json["user"].exists() && json["token"].exists() {
                     self.userEmail = json["user"].stringValue
                     self.authToken = json["token"].stringValue
                     self.isLoggedIn = true
                     completion(true)
                 } else {
+                    self.errorMessage = "Unknow error!"
+                    self.isLoggedIn = false
                     completion(false)
                 }
             } else {
+                self.errorMessage = "Login failed! Check out the connection!"
                 self.isLoggedIn = false
                 completion(false)
                 debugPrint(response.result.error as Any)
@@ -135,16 +146,19 @@ class AuthService {
             Alamofire.request(URL_ADD_USER, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
                 if response.result.error == nil {
                     guard let data = response.data else {
+                        self.errorMessage = "Cannot retrieve data!"
+                        completion(false)
                         return
                     }
-                    self.setUserData(data)
-                    completion(true)
+                    self.setUserData(data, completion)
                 } else {
+                    self.errorMessage = "Cannot retrieve data! Check out the connection!"
                     completion(false)
                     debugPrint(response.result.error as Any)
                 }
             }
         } else {
+            self.errorMessage = "Auth token is empty!"
             completion(false)
         }
     }
@@ -158,16 +172,19 @@ class AuthService {
             Alamofire.request("\(URL_USER_BY_EMAIL)\(userEmail)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
                 if response.result.error == nil {
                     guard let data = response.data else {
+                        self.errorMessage = "Cannot retrieve data!"
+                        completion(false)
                         return
                     }
-                    self.setUserData(data)
-                    completion(true)
+                    self.setUserData(data, completion)
                 } else {
+                    self.errorMessage = "Cannot retrieve data! Check out the connection!"
                     completion(false)
                     debugPrint(response.result.error as Any)
                 }
             }
         } else {
+            self.errorMessage = "Auth token is empty!"
             completion(false)
         }
     }

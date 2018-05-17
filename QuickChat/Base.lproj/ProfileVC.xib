@@ -19,6 +19,7 @@
                 <outlet property="tgrBackground" destination="sSl-WY-lRC" id="dtS-Km-k7K"/>
                 <outlet property="txtEmail" destination="mVP-UD-VV6" id="zj5-BV-hLO"/>
                 <outlet property="txtUsername" destination="n3b-gA-gSW" id="mAG-iC-LTg"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="9iU-LS-gu5"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

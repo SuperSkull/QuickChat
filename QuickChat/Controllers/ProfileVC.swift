@@ -17,6 +17,11 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var txtEmail: UILabel!
     @IBOutlet weak var bgdView: UIView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
     fileprivate func setupView() {
         // Do any additional setup after loading the view.
         tgrBackground = UITapGestureRecognizer(target: self, action: #selector(closeTapped(_:)))
@@ -25,11 +30,6 @@ class ProfileVC: UIViewController {
         txtEmail.text = UserDataService.instance.userData.email
         imgUser.image = UIImage(named: UserDataService.instance.userData.avatarName)
         imgUser.backgroundColor = UserDataService.instance.userData.getAvatarColor()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
     }
     
     @IBAction func bgdViewTapped(_ sender: UITapGestureRecognizer) {
