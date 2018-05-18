@@ -36,7 +36,6 @@ import UIKit
 //    }
     
     override func awakeFromNib() {
-        super.awakeFromNib()
         customizedView()
     }
 
