@@ -11,7 +11,7 @@ import UIKit
 class ProfileVC: UIViewController {
 
     @IBOutlet weak var btnClose: UIButton!
-    @IBOutlet var tgrBackground: UITapGestureRecognizer!
+//    @IBOutlet var tgrBackground: UITapGestureRecognizer!
     @IBOutlet weak var imgUser: UIImageView!
     @IBOutlet weak var txtUsername: UILabel!
     @IBOutlet weak var txtEmail: UILabel!
@@ -24,7 +24,7 @@ class ProfileVC: UIViewController {
     
     fileprivate func setupView() {
         // Do any additional setup after loading the view.
-        tgrBackground = UITapGestureRecognizer(target: self, action: #selector(closeTapped(_:)))
+        let tgrBackground = UITapGestureRecognizer(target: self, action: #selector(closeTapped(_:)))
         bgdView.addGestureRecognizer(tgrBackground)
         txtUsername.text = UserDataService.instance.userData.name
         txtEmail.text = UserDataService.instance.userData.email

@@ -9,41 +9,32 @@
 import Foundation
 import UIKit.UIColor
 
-class UserData {
-    public private(set) var id = ""
-    public private(set) var name = ""
-    public private(set) var email = ""
-    public private(set) var avatarName = ""
-    public private(set) var avatarColor = ""
+class UserData: Decodable {
+    public private(set) var _id: String = ""
+    public private(set) var avatarColor: String = ""
+    public private(set) var avatarName: String = ""
+    public private(set) var email: String = ""
+    public private(set) var name: String = ""
+    public private(set) var __v: Int = 0
     
     init() {}
     
-    init(id: String, name: String, email: String) {
-        self.id = id
-        self.name = name
-        self.email = email
-    }
-    
-    init(_ id: String, _ name: String, _ email: String) {
-        self.id = id
-        self.name = name
-        self.email = email
-    }
-    
-    init(id: String, name: String, email: String, avatarName: String, avatarColor color: String) {
-        self.id = id
-        self.name = name
-        self.email = email
-        self.avatarName = avatarName
+    init(_id: String, avatarColor color: String, avatarName: String, email: String, name: String, __v: Int) {
+        self._id = _id
         self.avatarColor = color
+        self.avatarName = avatarName
+        self.email = email
+        self.name = name
+        self.__v = __v
     }
     
-    init(_ id: String, _ name: String, _ email: String, _ avatarName: String, _ color: String) {
-        self.id = id
-        self.name = name
-        self.email = email
+    init(_ _id: String, _ avatarColor: String, _ avatarName: String, _ email: String, _ name: String, _ __v: Int) {
+        self._id = _id
+        self.avatarColor = avatarColor
         self.avatarName = avatarName
-        self.avatarColor = color
+        self.email = email
+        self.name = name
+        self.__v = __v
     }
     
     func setAvatarName(avatarName: String) {
@@ -62,7 +53,7 @@ class UserData {
         self.avatarColor = avatarColor
     }
     
-    func  getAvatarColor() -> UIColor {
+    func getAvatarColor() -> UIColor {
         let scanner = Scanner(string: avatarColor)
         let skipped = CharacterSet(charactersIn: "[], ")
         let stopped =  CharacterSet(charactersIn: ",")

@@ -38,6 +38,12 @@ import UIKit
         }
     }
     
+    @IBInspectable override var alpha: CGFloat {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
 //    @IBInspectable var topColor: UIColor = UIColor.red {
 //        didSet {
 //            self.setNeedsLayout()
@@ -55,7 +61,7 @@ import UIKit
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = []
         for i in 0 ..< 512 {
-            let pointColor: CGColor = UIColor(hue: CGFloat(i)/subdivisions, saturation: 1, brightness: 1, alpha: 1).cgColor
+            let pointColor: CGColor = UIColor(hue: CGFloat(i)/subdivisions, saturation: 1, brightness: 1, alpha: self.alpha).cgColor
             gradientLayer.colors?.append(pointColor)
         }
         //        gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]

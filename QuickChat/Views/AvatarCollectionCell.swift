@@ -12,6 +12,19 @@ import UIKit
 
     @IBOutlet weak var imgAvatar: UIImageView!
     
+//    override func layoutSubviews() {
+//        customizedView()
+//    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        customizedView()
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        customizedView()
+    }
+    
     fileprivate func customizedView() {
         self.layer.backgroundColor = UIColor.lightGray.cgColor
         self.layer.cornerRadius = 10
@@ -25,19 +38,6 @@ import UIKit
         } else {
             self.layer.backgroundColor = UIColor.lightGray.cgColor
         }
-    }
-    
-//    override func layoutSubviews() {
-//        customizedView()
-//    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        customizedView()
-    }
-    
-    override func prepareForInterfaceBuilder() {
-        customizedView()
     }
 
 }

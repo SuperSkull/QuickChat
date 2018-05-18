@@ -54,6 +54,9 @@ class SignUpVC: UIViewController {
         if let destinationViewController = segue.destination as? AvatarVC {
             destinationViewController.avatarType = sender as! AvatarType
         }
+        if let destinationViewController = segue.destination as? ChannelVC {
+            destinationViewController.toastText = sender as? String
+        }
     }
     
     fileprivate func setupView() {
@@ -92,7 +95,7 @@ class SignUpVC: UIViewController {
         aivSignUp.startAnimating()
         AuthService.instance.createUser(name: name, email: email, avatarName: avatarName, avatarColor: avatarColor) { (success) in
             if success {
-                self.performSegue(withIdentifier: TO_CHANNEL, sender: nil)
+                self.performSegue(withIdentifier: TO_CHANNEL, sender: "Create user successful!")
                 NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
             } else {
                 self.view.makeToast(AuthService.instance.errorMessage)

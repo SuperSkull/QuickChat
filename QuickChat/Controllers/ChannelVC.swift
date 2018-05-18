@@ -8,16 +8,21 @@
 
 import UIKit
 
-class ChannelVC: UIViewController {
+class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
 
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var imgUser: UIImageView!
+    @IBOutlet weak var tblChannel: UITableView!
     
     var toastText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        tblChannel.delegate = self
+        tblChannel.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(userDataDidChanged), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
     }
     
@@ -52,8 +57,14 @@ class ChannelVC: UIViewController {
     @objc func userDataDidChanged(_ notif: Notification) {
         setupUserData()
     }
-
-    @IBAction func btnLoginPressed(_ sender: Any) {
+    
+    @IBAction func btnAddChannelPressed(_ sender: UIButton) {
+        let addChannelVC = AddChannelVC()
+        addChannelVC.modalPresentationStyle = .custom
+        present(addChannelVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func btnLoginPressed(_ sender: UIButton) {
         if AuthService.instance.isLoggedIn {
             let profileVC = ProfileVC()
             profileVC.modalPresentationStyle = .custom
@@ -64,4 +75,19 @@ class ChannelVC: UIViewController {
     }
     
     @IBAction func unwindToChannelVC(unwindSegue: UIStoryboardSegue){}
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MessageService.instance.channels.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tblChannel.dequeueReusableCell(withIdentifier: CHANNEL_CELL, for: indexPath) as? ChannelTableCell {
+            cell.configureCell(channel: MessageService.instance.channels[indexPath.row])
+            return cell
+        }
+        return ChannelTableCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
 }

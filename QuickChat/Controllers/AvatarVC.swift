@@ -24,17 +24,17 @@ class AvatarVC: UIViewController, UICollectionViewDelegate, UICollectionViewData
     }
     
     fileprivate func setupView() {
-        if let tmpCollectionAvatar = cltAvatar as? AvatarCollectionView {
-            let numberColumns = CGFloat(tmpCollectionAvatar.numberColumns)
-            if let flowLayout = cltAvatar.collectionViewLayout as? UICollectionViewFlowLayout, numberColumns != 0 {
-                let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
-                let sectionInset = tmpCollectionAvatar.sectionInset
-                flowLayout.sectionInset = UIEdgeInsetsMake(0, sectionInset, 0, sectionInset)
-                let totalCellWidth = view.frame.width - max(0, numberColumns - 1) * horizontalSpacing - sectionInset * 2 - CGFloat(1)
-                let cellWidth = totalCellWidth / numberColumns
-                flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
-            }
-        }
+//        if let tmpCollectionAvatar = cltAvatar as? AvatarCollectionView {
+//            let numberColumns = CGFloat(tmpCollectionAvatar.numberColumns)
+//            if let flowLayout = cltAvatar.collectionViewLayout as? UICollectionViewFlowLayout, numberColumns != 0 {
+//                let horizontalSpacing = flowLayout.scrollDirection == .vertical ? flowLayout.minimumInteritemSpacing : flowLayout.minimumLineSpacing
+//                let sectionInset = tmpCollectionAvatar.sectionInset
+//                flowLayout.sectionInset = UIEdgeInsetsMake(0, sectionInset, 0, sectionInset)
+//                let totalCellWidth = view.frame.width - max(0, numberColumns - 1) * horizontalSpacing - sectionInset * 2 - CGFloat(1)
+//                let cellWidth = totalCellWidth / numberColumns
+//                flowLayout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+//            }
+//        }
         if avatarType == .light {
             sgmColor.selectedSegmentIndex = 1
         } else {
